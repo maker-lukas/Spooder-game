@@ -1,6 +1,6 @@
 ### Crappy Spider Bot Game
 
-This is a game that my ambition was too big to fufill the original game idea so it because this crappy spider bot game!
+This is a game that my ambition was too big to fufill the original game idea so it became this crappy spider bot game!
 
 #### Features:
 - Procedual animation
