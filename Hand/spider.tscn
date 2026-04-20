@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://diqqugna5mi7"]
+
+[ext_resource type="PackedScene" uid="uid://b55sa6i5tgidu" path="res://Hand/spider.glb" id="1_kn0nk"]
+[ext_resource type="Script" uid="uid://caj7tcmdcno61" path="res://start_ik.gd" id="2_7grlx"]
+[ext_resource type="Script" uid="uid://hulrjmhjkxu" path="res://Hand/spider.gd" id="2_s2h34"]
+[ext_resource type="Script" uid="uid://c2v583fdqrilj" path="res://Hand/ik_target.gd" id="4_iktgt"]
+[ext_resource type="Script" uid="uid://cd5t7ne5bj5cs" path="res://Hand/step_ray.gd" id="5_stpry"]
+[ext_resource type="Script" uid="uid://c1q8glfjjuyto" path="res://Hand/step_target_container.gd" id="6_stpcn"]
+[ext_resource type="Script" path="res://Hand/camera_pivot.gd" id="7_campv"]
+
+[node name="spider" unique_id=1712917466 instance=ExtResource("1_kn0nk")]
+script = ExtResource("2_s2h34")
+
+[node name="front left IK" type="SkeletonIK3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1062995158) index="13" unique_id=1760966783]
+process_priority = 1
+root_bone = &"front left 1"
+tip_bone = &"front left foot"
+target_node = NodePath("../../../FrontLeftIKTarget")
+script = ExtResource("2_7grlx")
+
+[node name="back left IK" type="SkeletonIK3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1062995158) index="14" unique_id=1080442906]
+process_priority = 1
+root_bone = &"back left 1"
+tip_bone = &"back left foot"
+target_node = NodePath("../../../BackLeftIKTarget")
+script = ExtResource("2_7grlx")
+
+[node name="front right IK" type="SkeletonIK3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1062995158) index="15" unique_id=632185963]
+process_priority = 1
+root_bone = &"front right 1"
+tip_bone = &"front right foot"
+target_node = NodePath("../../../FrontRightIKTarget")
+script = ExtResource("2_7grlx")
+
+[node name="back right IK" type="SkeletonIK3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(1062995158) index="16" unique_id=263904650]
+process_priority = 1
+root_bone = &"back right 1"
+tip_bone = &"back right foot"
+target_node = NodePath("../../../BackRightIKTarget")
+script = ExtResource("2_7grlx")
+
+[node name="FrontLeftIKTarget" type="Marker3D" parent="." index="1" unique_id=1876941977 node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -6.5, -5)
+top_level = true
+script = ExtResource("4_iktgt")
+step_target = NodePath("../StepTargetContainer/FrontLeftRay/FrontLeftStepTarget")
+adjacent_target = NodePath("../FrontRightIKTarget")
+opposite_target = NodePath("../BackRightIKTarget")
+
+[node name="BackLeftIKTarget" type="Marker3D" parent="." index="2" unique_id=542251401 node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -6.5, 5)
+top_level = true
+script = ExtResource("4_iktgt")
+step_target = NodePath("../StepTargetContainer/BackLeftRay/BackLeftStepTarget")
+adjacent_target = NodePath("../BackRightIKTarget")
+opposite_target = NodePath("../FrontRightIKTarget")
+
+[node name="FrontRightIKTarget" type="Marker3D" parent="." index="3" unique_id=1389002939 node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -6.5, -5)
+top_level = true
+script = ExtResource("4_iktgt")
+step_target = NodePath("../StepTargetContainer/FrontRightRay/FrontRightStepTarget")
+adjacent_target = NodePath("../FrontLeftIKTarget")
+opposite_target = NodePath("../BackLeftIKTarget")
+
+[node name="BackRightIKTarget" type="Marker3D" parent="." index="4" unique_id=2061567092 node_paths=PackedStringArray("step_target", "adjacent_target", "opposite_target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -6.5, 5)
+top_level = true
+script = ExtResource("4_iktgt")
+step_target = NodePath("../StepTargetContainer/BackRightRay/BackRightStepTarget")
+adjacent_target = NodePath("../BackLeftIKTarget")
+opposite_target = NodePath("../FrontLeftIKTarget")
+
+[node name="StepTargetContainer" type="Node3D" parent="." index="5" unique_id=744098898]
+script = ExtResource("6_stpcn")
+
+[node name="FrontLeftRay" type="RayCast3D" parent="StepTargetContainer" index="0" unique_id=854862531 node_paths=PackedStringArray("step_target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 5, -5)
+target_position = Vector3(0, -20, 0)
+script = ExtResource("5_stpry")
+step_target = NodePath("FrontLeftStepTarget")
+
+[node name="FrontLeftStepTarget" type="Marker3D" parent="StepTargetContainer/FrontLeftRay" index="0" unique_id=1874117225]
+
+[node name="FrontRightRay" type="RayCast3D" parent="StepTargetContainer" index="1" unique_id=1429509361 node_paths=PackedStringArray("step_target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, -5)
+target_position = Vector3(0, -20, 0)
+script = ExtResource("5_stpry")
+step_target = NodePath("FrontRightStepTarget")
+
+[node name="FrontRightStepTarget" type="Marker3D" parent="StepTargetContainer/FrontRightRay" index="0" unique_id=1807989482]
+
+[node name="BackLeftRay" type="RayCast3D" parent="StepTargetContainer" index="2" unique_id=81691142 node_paths=PackedStringArray("step_target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 5, 5)
+target_position = Vector3(0, -20, 0)
+script = ExtResource("5_stpry")
+step_target = NodePath("BackLeftStepTarget")
+
+[node name="BackLeftStepTarget" type="Marker3D" parent="StepTargetContainer/BackLeftRay" index="0" unique_id=515374540]
+
+[node name="BackRightRay" type="RayCast3D" parent="StepTargetContainer" index="3" unique_id=244521267 node_paths=PackedStringArray("step_target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 5)
+target_position = Vector3(0, -20, 0)
+script = ExtResource("5_stpry")
+step_target = NodePath("BackRightStepTarget")
+
+[node name="BackRightStepTarget" type="Marker3D" parent="StepTargetContainer/BackRightRay" index="0" unique_id=1491276323]
+
+[node name="CameraPivot" type="Node3D" parent="." index="6" unique_id=1260555670]
+unique_name_in_owner = true
+top_level = true
+script = ExtResource("7_campv")
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" index="0" unique_id=500788360]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.242781)
