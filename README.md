@@ -6,7 +6,7 @@ made with custom coded procedural animations. Made in Godot.
 
 *this project morphed from one idea into something a bit diffrent*
 
-![Spider gameplay](/images/spooder.gif)
+![Spider gameplay](images/spooder.gif)
 
 ### Features
 - **Procedural animation:** Spider movement and animations are generated entirely in code
