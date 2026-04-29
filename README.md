@@ -8,8 +8,6 @@ made with custom coded procedural animations. Made in Godot.
 
 ![Spider gameplay](images/spooder_gifsicle.gif)
 
-*Compressed from 156MB to 6.1MB (original ~20fps, 640x360, original colors preserved with gifsicle)*
-
 ### Features
 - **Procedural animation:** Spider movement and animations are generated entirely in code
 - **Procedural world**: the world is also generated with only code and parameters can be changed in code
